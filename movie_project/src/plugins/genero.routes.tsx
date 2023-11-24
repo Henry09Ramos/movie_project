@@ -1,13 +1,13 @@
 import {BrowserRouter as Routes,Route, BrowserRouter} from 'react-router-dom'
 import TableGenero from '../components/Genero/TableGenero'
 
-function App(){
+function RoutesGenero(){
     return (
         <BrowserRouter>
 <Routes>
-    <Route path="/" element={<TableGenero/>}  />
+    <Route path="/" element={<TableGenero></TableGenero>}  />
 </Routes>
 </BrowserRouter>
     )
 }
-export default App
+export default RoutesGenero
