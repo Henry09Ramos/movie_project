@@ -1,11 +1,12 @@
 import './index.css'
+import GeneroRoutes from './plugins/genero.routes'
+
 
 function App(){
   return (
-  <div className= "Flex" >
-    
-    
-  </div>)
+  
+    <GeneroRoutes/>
+  )
 }
 
 export default App

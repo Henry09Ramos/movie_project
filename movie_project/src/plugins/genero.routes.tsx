@@ -5,7 +5,7 @@ function App(){
     return (
         <BrowserRouter>
 <Routes>
-    <Route path="/" element={<TableGenero></TableGenero>}  />
+    <Route path="/" element={<TableGenero/>}  />
 </Routes>
 </BrowserRouter>
     )
