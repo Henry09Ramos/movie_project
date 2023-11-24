@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
-import { IGetGeneros} from "../types/genero.types"
-import {get_genero} from "../services/genero.services"
+import { IGetGeneros, ICreateGenero} from "../types/genero.types"
+import {create_genero, get_genero} from "../services/genero.services"
 
 
 export const useGeneroStore = defineStore('genero',{
@@ -17,6 +17,16 @@ export const useGeneroStore = defineStore('genero',{
                    this.genero = data.generos
                 }
             })
+        },
+        onCreateGenero(genero: ICreateGenero){
+            const data = create_genero(genero)
+            if(data.then){
+                data.then(({data})=>{
+                    if(data.ok)
+                    alert("Genero created")
+                this.OnGetGeneros()
+                })
+            }
         }
     }
 })
