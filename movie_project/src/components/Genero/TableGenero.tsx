@@ -76,7 +76,7 @@ export default function CreateGenero(){
                <form onSubmit={handleSubmit(onSubmit)}>
                  <div className="mb-4">
                    <label htmlFor="genero" className="block text-gray-700 text-sm font-medium">Genero:</label>
-                   <input  {...register("type")} className="w-full h-10 p-4 border rounded-xl" placeholder="Ingrese el rol"/> 
+                   <input  {...register("type")} className="w-full h-10 p-4 border rounded-xl" placeholder="Ingrese el genero"/> 
                  </div>
                  <div className="flex justify-end">
                    <button onClick={handleSaveGenero} type="submit" className="px-4 py-2 text-black bg-blue-600 text-sm font-medium rounded-md">

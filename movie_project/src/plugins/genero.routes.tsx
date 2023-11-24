@@ -1,4 +1,4 @@
-import {BrowserRouter as Routes,Route, BrowserRouter} from 'react-router-dom'
+import {BrowserRouter, Routes,Route} from 'react-router-dom'
 import TableGenero from '../components/Genero/TableGenero'
 
 function RoutesGenero(){
