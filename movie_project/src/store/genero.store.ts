@@ -1,32 +1,92 @@
-import { defineStore } from "pinia"
-import { IGetGeneros, ICreateGenero} from "../types/genero.types"
-import {create_genero, get_genero} from "../services/genero.services"
+
+import {useState, useEffect} from 'react'
+import { create_genero, get_genero,update_genero,delete_genero} from '../services/genero.services'
+import { IGetGenero } from '../types/genero.types'
 
 
-export const useGeneroStore = defineStore('genero',{
-    state:()=>({
-        //el siguiente codigo define el tipo de una varibale o propiedad
-        genero: [] as IGetGeneros[],
-        genero_list:[] as IGetGeneros[]
-    }),
-    actions:{
-        OnGetGeneros(name:string){
-            get_genero(name)
-            .then(({data})=>{
-                if(data.ok){
-                   this.genero = data.generos
-                }
-            })
-        },
-        onCreateGenero(genero: ICreateGenero){
-            const data = create_genero(genero)
-            if(data.then){
-                data.then(({data})=>{
-                    if(data.ok)
-                    alert("Genero created")
-                this.OnGetGeneros()
-                })
-            }
+
+const useGeneroStore = () =>{
+const [data,setGeneros ] = useState<IGetGenero[]>([])
+
+useEffect(()=>{
+    OnGetGenero()
+}, [])
+
+
+// const OnGetGenero = async() =>{
+//     try {
+//         const data = await get_genero()
+//         return data
+//     } catch  {
+//         return({
+
+//         })
+//     }
+// }
+
+const OnGetGenero = async()=>{
+    try {
+        const data = await get_genero()
+        setGeneros (data.generos)
+        
+    } catch (error) {
+        return{
+
         }
     }
-})
+}
+
+
+const onCreateGenero = async (type:string) =>{
+    try {
+        const data = await create_genero(type)
+        if(data.ok){
+            await OnGetGenero()
+        }
+        
+    } catch {
+        return({
+
+        })
+    }
+}
+
+const onUpdateGenero = async (id:number, type:string) =>{
+    try {
+        const data = await update_genero(id, type)
+
+        if(data.ok){
+            await OnGetGenero()
+        }
+        
+    } catch (error) {
+        return({
+
+        })
+    }
+}
+
+const onDeleteGenero = async (id:number)=>{
+    try {
+        const data = await delete_genero(id)
+        if(data.ok){
+            await OnGetGenero()
+        }
+    } catch (error) {
+        return({
+
+        })
+    }
+} 
+
+return {
+    data,
+    OnGetGenero,
+    onCreateGenero,
+    onUpdateGenero,
+    onDeleteGenero
+}
+}
+
+export default useGeneroStore
+

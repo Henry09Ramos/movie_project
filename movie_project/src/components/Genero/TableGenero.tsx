@@ -1,96 +1,101 @@
+import { useEffect ,useState} from "react";
+import useGeneroStore from "../../store/genero.store";
+// import { IoCreateOutline } from "react-icons/io5";
+import { IoMdTrash } from "react-icons/io";
+import CreateGen from "./createGenero";
+import UpdateGenero from "./updateGenero";
+
+export default function CreateGenero() {
+  // const [showModal, setShowModal] = useState(false);
+
+  // const [showAlert, setShowAlert] = useState(false)
+
+//   const {  handleSubmit, register, reset } = useForm<ICreateGenero>();
+  const { data, OnGetGenero, onDeleteGenero } = useGeneroStore();
+  const [generoToDelete, setGeneroToDelete] = useState <{id:number, type:string} | null>(null)
+
+  useEffect(() => {
+    OnGetGenero();
+  }, []);
+
+  const handleDelete = (id:number ,type:string) =>{
+      setGeneroToDelete({id,type})
+  }
+
+  const ConfirmDelete = ()=>{
+      if(generoToDelete){
+          onDeleteGenero(generoToDelete.id)
+          alert(`El registrado se ha eliminado`)
+  setGeneroToDelete(null)
+      }
+  }
+
+  const cancelToDelete = () =>{
+      setGeneroToDelete(null)
+  }
+  return (
+    <>
+      <div className="text-center font-bold text-5 p-5 ">
+        <h2 className="text-2xl font-semibold mb-4">GENERO</h2>
+
+        <CreateGen />
+        <table className="text-left w-full ">
+	<thead className="bg-gray-900 flex text-white w-full ">
+		<tr className="flex w-full text-xs md:text-sm">
+			<th className="p-4 w-2/4 flex justify-center">Type</th>
+			<th className="p-4 w-2/4 flex justify-center">Acciones</th>
+		</tr>
+	</thead>
+	<tbody className="bg-grey-light flex flex-col items-center justify-between w-full ">
+        {data.map((items)=>(
+      
+		<tr key={items.id}className="flex w-full text-sm border-b border-gray-100">
+			
+			<td className="p-4 w-2/4 flex justify-center">{items.type}</td>
+			
+			<td className="p-4 w-2/4 flex justify-center">
+                <div className="flex  md:flex-row">
+                    {/* <button  
+                    className="bg-green-500 text-white w-10 h-10 mr-40 rounded-full  ">
+                        <IoCreateOutline className='ml-2'size={24} />
+                    </button  > */}
+                    <UpdateGenero   generoId={items.id} generoNameUpdate={items.type}/>
 
 
- import {useState} from 'react'
-import {useForm} from 'react-hook-form'
-import {ICreateGenero} from '../../types/genero.types'
-import {create_genero} from '../../services/genero.services'
+                    <button onClick={() => handleDelete(items.id, items.type)}
+                    className="bg-red-600 text-white w-10 h-10 rounded-full   ">
+                         <IoMdTrash className='ml-2' size={20}/>   
+                  </button>
+                </div>
+            </td>
+		</tr>
+))}
+    </tbody>
+</table>
+        
+      </div>
+{generoToDelete && (
+    <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+<div className='bg-white p-4 rounded-lg shadow-lg'>
+<p>¿Estas seguro que deseas eliminar este registro"{generoToDelete.type}"? </p>
+<div className='mt-4  flex justify-center'  >
+
+   <button onClick={ConfirmDelete} 
+   className='bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full '>
+    Acepto
+    </button> 
+    <button onClick={cancelToDelete} 
+     className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-4 '> 
+    Cancelar
+    </button>
+</div>
+</div>
+
+    </div>
+)}
 
 
 
-
-export default function CreateGenero(){
-    const [showModal, setShowModal] = useState(false);
-   
-    const [showAlert, setShowAlert] = useState(false)
-   
-    const {  handleSubmit, register, reset } = useForm<ICreateGenero>();
-   
-    const handleSaveGenero = () => {
-   
-   
-     setShowAlert(true);
-   
-     // Puedes agregar un temporizador para ocultar la alerta después de un tiempo
-     setTimeout(() => {
-       setShowAlert(false);
-     }, 3000); // Oculta la alerta después de 3000 milisegundos (3 segundos)
-   };
-   
-    const onSubmit = (data: ICreateGenero) => {
-     console.log(data)
-     create_genero(data)
-       .then((data) => {
-         console.log('Genero agregado con éxito:', data);
-         
-         
-         closeModal();
-         reset()
-   
-       })
-     
-       }
-    
-     
-     const closeModal = () => {
-       setShowModal(false)
-     };
-            
-   
-   const openModal = () => {
-       setShowModal(true);
-   };
-   
-     return (
-       <div className="bg-white p-2 flex justify-center opacity-100">
-         <button onClick={openModal}  className="flex items-center text-black font-semibold py-2 px-4 rounded-md shadow-md">
-           <span>Añadir Genero</span>
-         </button>
-   
-         <div>
-         {showAlert && (
-           <div className="px-4 py-6 bg-white rounded-r-lg flex justify-between items-center w-full border border-l-transparent border-gray-200">
-             <div>Success alert</div>
-             <button onClick={() => setShowAlert(false)}>
-               <svg className="fill-current text-gray-700" viewBox="0 0 16 16" width="20" height="20">
-                 {/* <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path> */}
-               </svg>
-             </button>
-           </div>
-         )}
-         </div>
-   
-         {showModal &&(
-           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-             <div className="bg-white rounded-lg shadow-lg p-6">
-               <h3 className="text-lg font-medium mb-4 text-center">Añadir Genero</h3>
-               <form onSubmit={handleSubmit(onSubmit)}>
-                 <div className="mb-4">
-                   <label htmlFor="genero" className="block text-gray-700 text-sm font-medium">Genero:</label>
-                   <input  {...register("type")} className="w-full h-10 p-4 border rounded-xl" placeholder="Ingrese el genero"/> 
-                 </div>
-                 <div className="flex justify-end">
-                   <button onClick={handleSaveGenero} type="submit" className="px-4 py-2 text-black bg-blue-600 text-sm font-medium rounded-md">
-                     Guardar
-                   </button>
-                   <button onClick={closeModal} type="button" className="px-4 py-2 bg-gray-200 text-gray-800 text-sm font-medium rounded-md ml-2">
-                     Cancelar
-                   </button>
-                 </div>
-               </form>
-             </div>
-           </div>
-         )}
-       </div>
-     );
-   }
-       
+    </>
+  );
+}
