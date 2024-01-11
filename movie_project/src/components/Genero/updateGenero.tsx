@@ -4,10 +4,16 @@ import useGeneroStore from "../../store/genero.store";
 import { IoCreateOutline } from "react-icons/io5";
 
 
-const UpdateGenero = ({generoId, generoNameUpdate}: {generoId: number, generoNameUpdate: string}) => {
+const UpdateGenero = ({
+  generoId, 
+  generoNameUpdate
+}: {
+  generoId: number, 
+  generoNameUpdate: string
+}) => {
     const [showModal, setShowModal] = useState(false);
     const [newGeneroName, setNewGeneroName] = useState(generoNameUpdate);
-    const {onUpdateGenero} = useGeneroStore();
+    const {OnUpdateGenero} = useGeneroStore();
 
     const closeModal = () => {
         setShowModal(false)
@@ -25,7 +31,8 @@ const UpdateGenero = ({generoId, generoNameUpdate}: {generoId: number, generoNam
 
     const handleSubmit = async () => {
         if (newGeneroName.trim() !== ''){
-            await onUpdateGenero(generoId, newGeneroName);
+            await OnUpdateGenero({id: generoId,
+            type:newGeneroName, state:true});
             closeModal();
         }
     }

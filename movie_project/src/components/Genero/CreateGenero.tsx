@@ -5,7 +5,7 @@ import useGeneroStore from '../../store/genero.store';
 
 
 export default function CreateGenero(){
-    const{onCreateGenero} = useGeneroStore()
+    const{OnCreateGenero} = useGeneroStore()
     const[type, setType] = useState('')
     const [showModal, setShowModal] = useState(false)
 
@@ -25,7 +25,7 @@ setType(e.target.value)
 
 const handleSubmit = async()=>{
     if(type.trim() !== ''){
-        await onCreateGenero(type)
+        await OnCreateGenero(type)
         closeModal()
     }
 }
@@ -33,7 +33,7 @@ const handleSubmit = async()=>{
 return(
 
 <div className='bg-white p-2 flex justify-center opacity-100'>
-<button onClick={openModal} className="px-4 py-2 rounded-full mr-[1200px]  items-end ">
+<button onClick={openModal} className="px-4 py-2 rounded-full   items-end ">
   
   <CiCirclePlus size={40} color='blue'/>
   </button>

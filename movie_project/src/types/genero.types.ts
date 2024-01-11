@@ -1,20 +1,20 @@
-export interface IGetGenero{
-    id:number
+
+export interface IGetGeneros{
+    id: number
     type:string
-    state:boolean
+    state: boolean
 }
 
-// export interface ICreateGenero {
-//     type:string
-   
-// }
+export interface BasicResponse{
+    ok: boolean
+    smg: string
+}
 
-// export interface IGetGenerosResponse extends IBasicResponse{
-//     genero:IGetGeneros[]
-// }
-
-// export interface IBasicResponse{
-//     ok: true 
-//     state:number
-// }
+export interface GeneroState{
+    generos: IGetGeneros[]
+    OnGetGeneros: () => Promise<void>
+    OnCreateGenero: (type: string) =>Promise<void>
+    OnUpdateGenero: ( type:IGetGeneros) =>Promise<void>
+    OnDeleteGenero: (id:number)=> Promise<void>
+}
 

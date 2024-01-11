@@ -4,6 +4,7 @@ import useGeneroStore from "../../store/genero.store";
 import { IoMdTrash } from "react-icons/io";
 import CreateGen from "./createGenero";
 import UpdateGenero from "./updateGenero";
+import LayoutNav from "../Layout";
 
 export default function CreateGenero() {
   // const [showModal, setShowModal] = useState(false);
@@ -11,12 +12,12 @@ export default function CreateGenero() {
   // const [showAlert, setShowAlert] = useState(false)
 
 //   const {  handleSubmit, register, reset } = useForm<ICreateGenero>();
-  const { data, OnGetGenero, onDeleteGenero } = useGeneroStore();
+  const { generos, OnGetGeneros, OnDeleteGenero } = useGeneroStore();
   const [generoToDelete, setGeneroToDelete] = useState <{id:number, type:string} | null>(null)
 
   useEffect(() => {
-    OnGetGenero();
-  }, []);
+    OnGetGeneros();
+  }, [])
 
   const handleDelete = (id:number ,type:string) =>{
       setGeneroToDelete({id,type})
@@ -24,7 +25,7 @@ export default function CreateGenero() {
 
   const ConfirmDelete = ()=>{
       if(generoToDelete){
-          onDeleteGenero(generoToDelete.id)
+          OnDeleteGenero(generoToDelete.id)
           alert(`El registrado se ha eliminado`)
   setGeneroToDelete(null)
       }
@@ -34,20 +35,32 @@ export default function CreateGenero() {
       setGeneroToDelete(null)
   }
   return (
+   
+   
+   
     <>
-      <div className="text-center font-bold text-5 p-5 ">
-        <h2 className="text-2xl font-semibold mb-4">GENERO</h2>
+    
+<LayoutNav>
+    <>
 
+
+   
+      <div className="text-center font-bold text-5  w-full">
+     
+        <h2 className="text-2xl font-semibold mb-4 flex justify-center ml-60">GENERO</h2>
+       
+ 
         <CreateGen />
         <table className="text-left w-full ">
-	<thead className="bg-gray-900 flex text-white w-full ">
+	<thead className="bg-gray-900 flex text-white ">
 		<tr className="flex w-full text-xs md:text-sm">
 			<th className="p-4 w-2/4 flex justify-center">Type</th>
 			<th className="p-4 w-2/4 flex justify-center">Acciones</th>
 		</tr>
 	</thead>
+    
 	<tbody className="bg-grey-light flex flex-col items-center justify-between w-full ">
-        {data.map((items)=>(
+        {generos.map((items)=>(
       
 		<tr key={items.id}className="flex w-full text-sm border-b border-gray-100">
 			
@@ -89,13 +102,19 @@ export default function CreateGenero() {
     Cancelar
     </button>
 </div>
+
 </div>
 
+
     </div>
+
 )}
-
-
-
     </>
+
+</LayoutNav>
+    </>
+   
+
+   
   );
 }
