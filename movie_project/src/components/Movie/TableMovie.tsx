@@ -3,7 +3,7 @@ import {useEffect, useState} from  "react"
 import useMovieStore from "../../store/movie.store"
 import { IoMdTrash } from 'react-icons/io';
 import CreateMovie from "./createMovie";
-import LayoutNav from "../Layout";
+import Navbar from './../layout'
 import MovieUpdate from "./updateMovie";
 
 
@@ -34,20 +34,14 @@ const cancelDelete = () =>{
 	setMovieDelete(null)
 }
     return(
-
-        <>
-	
-		<LayoutNav>
-		<>
-		<h3 className='text-2xl  font-semibold '>
- Movie
-</h3>
+<>
+    <nav>
+      <Navbar />
+		<h3 className='text-2xl  font-semibold '>Movie</h3>
         <div className=' '>
 			<div className=' '>
-		
-<CreateMovie />
-
-			</div>
+		     <CreateMovie />
+           </div>
 			
 
        <div className="container mx-auto ">
@@ -129,10 +123,8 @@ Cancelar
 
 	</div>
 )}
+</nav>
+   </>
 
-</>
-</LayoutNav>
-
-        </>
     )
 }

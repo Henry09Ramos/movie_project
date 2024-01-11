@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes,Route} from 'react-router-dom'
 import TableGenero from '../components/Genero/TableGenero'
 //  import DataTable from '../components/Genero/listGenero'
-import CreateGenero from '../components/Genero/createGenero'
+import CreateGenero from '../components/Genero/CreateGenero'
 import ClientTable from '../components/Client/TableClient'
 // import LayoutNav from '../components/Layout'
 // import NavMenu from '../components/Layout'
@@ -17,6 +17,7 @@ function RoutesGenero(){
     return (
         <BrowserRouter>
 <Routes>
+
     {/* <Route path='/lay' element={<LayoutNav/>} /> */}
     <Route path="/list" element={<TableGenero/>}  />
  <Route path="/"  element={<CreateGenero/>} /> 
@@ -26,6 +27,7 @@ function RoutesGenero(){
      <Route path='/rentmovie' element={<TableRentMovie/>}/>
      <Route path='/rentupdate' element={<CreateRentMovie/>}/>
      {/* <Route path='/update' element={<UpdateRentMovie/>}/> */}
+
 
 </Routes>
 

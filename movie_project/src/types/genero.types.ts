@@ -1,8 +1,8 @@
-
 export interface IGetGeneros{
     id: number
     type:string
     state: boolean
+
 }
 
 export interface BasicResponse{
@@ -17,4 +17,5 @@ export interface GeneroState{
     OnUpdateGenero: ( type:IGetGeneros) =>Promise<void>
     OnDeleteGenero: (id:number)=> Promise<void>
 }
+
 

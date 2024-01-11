@@ -1,3 +1,4 @@
+
 import { create_movie, delete_movie, get_movie, update_movie } from '../services/movie.service';
 import {ICreateMovie , IUpdateMovie} from './../types/movie.types';
 import { MovieState } from './../types/movie.types';
@@ -59,3 +60,4 @@ import {create} from 'zustand'
 }))
 
 export default useMovieStore
+

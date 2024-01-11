@@ -2,16 +2,13 @@ import { useEffect ,useState} from "react";
 import useGeneroStore from "../../store/genero.store";
 // import { IoCreateOutline } from "react-icons/io5";
 import { IoMdTrash } from "react-icons/io";
-import CreateGen from "./createGenero";
+import CreateGen from "./CreateGenero";
 import UpdateGenero from "./updateGenero";
-import LayoutNav from "../Layout";
+// import LayoutNav from "../Layout";
+import Navbar from './../layout'
 
 export default function CreateGenero() {
-  // const [showModal, setShowModal] = useState(false);
-
-  // const [showAlert, setShowAlert] = useState(false)
-
-//   const {  handleSubmit, register, reset } = useForm<ICreateGenero>();
+ 
   const { generos, OnGetGeneros, OnDeleteGenero } = useGeneroStore();
   const [generoToDelete, setGeneroToDelete] = useState <{id:number, type:string} | null>(null)
 
@@ -35,21 +32,11 @@ export default function CreateGenero() {
       setGeneroToDelete(null)
   }
   return (
-   
-   
-   
-    <>
-    
-<LayoutNav>
-    <>
-
-
-   
-      <div className="text-center font-bold text-5  w-full">
-     
-        <h2 className="text-2xl font-semibold mb-4 flex justify-center ml-60">GENERO</h2>
-       
- 
+    <nav>
+      <Navbar />
+      <div className="text-center font-bold text-5 p-5 ">
+        <h2 className="text-2xl font-semibold mb-4">GENERO</h2>
+        <div className="text-center font-bold text-5  w-full">
         <CreateGen />
         <table className="text-left w-full ">
 	<thead className="bg-gray-900 flex text-white ">
@@ -60,27 +47,21 @@ export default function CreateGenero() {
 	</thead>
     
 	<tbody className="bg-grey-light flex flex-col items-center justify-between w-full ">
-        {generos.map((items)=>(
+ {generos.map((items)=>(
       
 		<tr key={items.id}className="flex w-full text-sm border-b border-gray-100">
 			
 			<td className="p-4 w-2/4 flex justify-center">{items.type}</td>
-			
+
 			<td className="p-4 w-2/4 flex justify-center">
-                <div className="flex  md:flex-row">
-                    {/* <button  
-                    className="bg-green-500 text-white w-10 h-10 mr-40 rounded-full  ">
-                        <IoCreateOutline className='ml-2'size={24} />
-                    </button  > */}
-                    <UpdateGenero   generoId={items.id} generoNameUpdate={items.type}/>
-
-
-                    <button onClick={() => handleDelete(items.id, items.type)}
-                    className="bg-red-600 text-white w-10 h-10 rounded-full   ">
-                         <IoMdTrash className='ml-2' size={20}/>   
-                  </button>
-                </div>
-            </td>
+        <div className="flex  md:flex-row">
+        <UpdateGenero  generoId={items.id} generoNameUpdate={items.type}/>
+        <button onClick={() => handleDelete(items.id, items.type)}
+         className="bg-red-600 text-white w-10 h-10 rounded-full   ">
+          <IoMdTrash className='ml-2' size={20}/>   
+        </button>
+        </div>
+        </td>
 		</tr>
 ))}
     </tbody>
@@ -109,12 +90,7 @@ export default function CreateGenero() {
     </div>
 
 )}
-    </>
-
-</LayoutNav>
-    </>
-   
-
-   
+ </div>
+    </nav>
   );
 }
